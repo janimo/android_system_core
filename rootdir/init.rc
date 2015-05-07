@@ -296,6 +296,9 @@ on post-fs-data
 # Include extra init file
     import /init.cm.rc
 
+on early-boot
+    start upstart-watcher
+
 on boot
 # basic network init
     ifup lo
@@ -472,6 +475,9 @@ service healthd-charger /sbin/healthd -n
     class charger
     critical
     seclabel u:r:healthd:s0
+
+service upstart-watcher /sbin/upstart-property-watcher
+    class core
 
 service console /system/bin/sh
     class core
